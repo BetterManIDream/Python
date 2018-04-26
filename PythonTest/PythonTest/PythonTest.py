@@ -1,4 +1,4 @@
-
+#温度转换
 '''val=input("请输入带有符号的温度值(32C):")
 if(val[-1] in ['c','C']):
     f=1.8*float(val[0:-1])+32
@@ -9,7 +9,7 @@ elif val[-1] in ['f','F']:
 else:
     print("输入有误！")'''
 
-
+#绘制蟒蛇移动
 '''import turtle
 
 def drawSnake(rad,angle,len,neckrad):
@@ -68,7 +68,8 @@ p.end_fill()'''
 host_name=socket.gethostname()
 print("Host Name:",host_name,"\nIP Adress:",socket.gethostbyname(host_name))'''
 
-import socket
+#获取IP地址
+'''import socket
 
 def get_remote_machine_info():
     remote_host='www.jd.com'
@@ -77,4 +78,4 @@ def get_remote_machine_info():
     except socket.error:
         print(socket.error)
 
-get_remote_machine_info()
+get_remote_machine_info()'''

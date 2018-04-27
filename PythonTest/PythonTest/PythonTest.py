@@ -45,7 +45,6 @@ print(fact(989))'''
         return reverse(s[1:])+s[0]
 print(reverse("lfssnh"))'''
 
-
 #绘制五角星
 '''from turtle import Turtle
 
@@ -79,3 +78,116 @@ def get_remote_machine_info():
         print(socket.error)
 
 get_remote_machine_info()'''
+
+#线程测试
+'''import threading
+
+def do_this(what):
+    whoami(what)
+
+def whoami(what):
+    print("Thread %s says: %s" % (threading.current_thread(),what))
+  
+if __name__ == "__main__":
+    whoami("I'm mian program!")
+    for n in range(4):
+        p=threading.Thread(target=do_this,args=("I'm function %s"% n, ))
+        p.start()'''
+
+#TCP Server
+'''from datetime import datetime
+import socket
+address = ('0.0.0.0', 60001)
+
+max_size = 1000
+print('Starting the server at', datetime.now())
+print('Waiting for a client to connect....')
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind(address)
+server.listen(5)
+client, addr = server.accept()
+data = client.recv(max_size)
+
+print('Start the server at',datetime.now())
+print('Waiting for a client to connect...')
+server = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+server.bind(address)
+server.listen(5)
+
+print(datetime.now(),'', client.getsockname(), 'said:', data)
+client.sendall(b'Are you talking to me?')
+client.close()
+server.close()'''
+
+#TCP Client
+'''from datetime import datetime 
+from socket import*
+
+address=('192.168.1.220',60001)
+
+client=socket(AF_INET, SOCK_STREAM)
+client.connect(address)
+client.sendall(b'Hello Sever!')
+data = client.recv(1024)
+print(datetime.now(),':',data,'exit!')
+client.close()'''
+
+#多线程TCP Server
+'''from datetime import datetime
+from socket import *
+from os import *
+from threading import Thread
+
+def Threader(sock):
+    while True:
+        cmd=sock.recv(1024)
+        if cmd=='exit':
+            sock.close()
+            exit()
+        sock.send(cmd)
+        print(datetime.now(),':',cmd)
+
+s=socket(AF_INET,SOCK_STREAM)
+s.bind(('0.0.0.0',60001))
+s.listen(1)
+print('Server start at',datetime.now())
+while True:
+    sock,addr=s.accept()
+    print('Client',addr,'connect')
+    t=Thread(target=Threader,args=(sock,))
+    t.start()'''
+
+
+#多线程Client 实现输入/打印
+import sys  
+from socket import*
+from threading import Thread
+
+def Receive(sock):
+    while True:
+        data = sock.recv(1024)
+        if data=='exit':
+           sock.close()
+           exit()
+        print('Client Receive:',data)
+
+def Input(sock):
+    while True:
+        data=input()
+        if data == 'exit':
+            break
+        sock.sendall(data.encode())
+        print('Client Send:',data) 
+
+address = ('192.168.1.220',60001)
+sock=socket(AF_INET,SOCK_STREAM)
+sock.connect(address)
+
+s=Thread(target=Receive,args=(sock,))
+t=Thread(target=Input,args=(sock,))
+s.start()
+t.start()
+
+   
+
+

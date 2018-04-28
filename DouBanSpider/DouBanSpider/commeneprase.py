@@ -1,9 +1,5 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Aug 29 15:52:28 2017
 
-@author: changjin
-"""
 #载入模块
 from bs4 import BeautifulSoup
 
